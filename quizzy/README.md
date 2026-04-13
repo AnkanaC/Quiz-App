@@ -1,6 +1,8 @@
 # quizzy
 
 A new Flutter project.
+Creator : Ankana Chakraborty
+Demo Quiz App to learn Flutter from scratch
 
 ## Getting Started
 
