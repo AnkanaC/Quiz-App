@@ -19,7 +19,6 @@ class _questionsScreenState extends State<questionsScreen> {
     selectedAnswrs.add(answer);
 
     if(selectedAnswrs.length == questions.length) {
-      // All questions have been answered, navigate to the results screen
       Navigator.push(
         context,
         MaterialPageRoute(

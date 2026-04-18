@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quizzy/Screens/QuestionsPage.dart';
 import 'package:quizzy/Themes/backgroundColors.dart';
 import 'package:quizzy/data/Questions.dart';
+import 'package:quizzy/models/QuestionSummary.dart';
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen({super.key, required this.chosenAnswers});
@@ -24,6 +26,12 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final numberOfQuestions = questions.length;
+    final numberOfCorrectAnswers = getSummaryData().where((data) {
+      return data['user_answer'] == data['correct_answer'];
+    }).length;
+
     return Scaffold(
       body: BackgroundColours.blue(
         child: SizedBox(
@@ -34,7 +42,7 @@ class ResultsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text("You Answered 3/5 Questions Correctly!",
+                Text("You Answered $numberOfCorrectAnswers / $numberOfQuestions Questions Correctly!",
                   style: TextStyle(
                     color: Color.fromARGB(255, 201, 153, 251),
                     fontSize: 24,
@@ -44,13 +52,17 @@ class ResultsScreen extends StatelessWidget {
 
                 const SizedBox(height: 30),
 
-                const Text("List of answers"),
+               Questionsummary(getSummaryData()),
 
                 const SizedBox(height: 30),
 
                 TextButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => questionsScreen()),
+                      (route) => false,
+                    );
                   },
                   child: Text("Restart Quiz"),
                 )
